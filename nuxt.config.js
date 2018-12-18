@@ -28,8 +28,8 @@ module.exports = {
   */
   css: [
     'element-ui/lib/theme-chalk/reset.css',
-    'element-ui/lib/theme-chalk/index.css'
-    // '~assets/css/main.css'
+    'element-ui/lib/theme-chalk/index.css',
+    '~assets/css/main.css'
   ],
 
   /*
@@ -70,7 +70,6 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    },
-    cache: ture
+    }
   }
 }
