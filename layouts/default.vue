@@ -4,14 +4,14 @@
       <my-header/>
     </el-header>
     <el-main>
-      <nuxt/>
+      1
     </el-main>
     <el-footer>Footer</el-footer>
   </el-container>
 </template>
 
 <script>
-import MyHeader from '@/components/public/header/topBar'
+import MyHeader from '@/components/public/header/index.vue'
 export default {
   components: {
     MyHeader

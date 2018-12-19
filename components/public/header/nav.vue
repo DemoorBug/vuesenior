@@ -37,24 +37,6 @@
             <dd>国际机票</dd>
             <dd>国际机票</dd>
             <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
-            <dd>国际机票</dd>
           </dl>
           <dl class="food">
             <dt>吃美食</dt>
@@ -66,25 +48,9 @@
             <dd>烧烤</dd>
             <dd>烧烤</dd>
             <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
-            <dd>烧烤</dd>
           </dl>
           <dl class="movie">
             <dt>看电影</dt>
-            <dd>热映电影</dd>
-            <dd>热映电影</dd>
-            <dd>热映电影</dd>
-            <dd>热映电影</dd>
-            <dd>热映电影</dd>
             <dd>热映电影</dd>
             <dd>热映电影</dd>
             <dd>热映电影</dd>
