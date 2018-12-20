@@ -16,26 +16,26 @@
             v-model="search"
             placeholder="搜索商家或地点"
             @focus="focus"
-            @blur="blur"/>
+            @blur="blur"
+            @keyup.down.native="numberSerace"
+            @keyup.up.native="upSerace"/>
           <button class="el-button el-button--primary"><i class="el-icon-search"/></button>
           <dl
             v-if="isHotPlace"
             class="hotPlace">
             <dt>热门搜索</dt>
-            <dd><nuxt-link to="/home">火锅</nuxt-link></dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
+            <dd
+              v-for="(item, index) of hotPlace"
+              :key="index">{{ item }}</dd>
           </dl>
           <dl
             v-if="isSearchList"
+            ref="hoste"
             class="searchList">
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
+            <dd
+              v-for="(item, index) of searchList"
+              :ref= "index"
+              :key="index">{{ item }}</dd>
           </dl>
         </div>
         <p class="suggset">
@@ -101,7 +101,14 @@ export default {
   data () {
     return {
       isFocus: false,
-      search: ''
+      search: '',
+      hotPlace: ['热门搜索', 'nice'],
+      searchDate: ['哈哈2哈哈1', '也没2有那么1', '搜索2吗1', '北京1烤鸭', '偶是1'],
+      searchList: [],
+      show: true,
+      number: 0,
+      what: false,
+      hidone: false
     }
   },
   computed: {
@@ -112,6 +119,30 @@ export default {
       return this.isFocus && this.search
     }
   },
+  watch: {
+    search () {
+      if (!this.search) {
+        this.searchList = []
+        return
+      }
+      if (this.what) {
+        return
+      }
+      const result = []
+      this.searchDate.forEach((value, index) => {
+        if (value.indexOf(this.search) > -1) {
+          result.push(value)
+        }
+      })
+      /*和这层代码没关系*/
+      for (let i = 0; i < this.searchList.length; i++) {
+        this.$refs[i][0].className = ''
+      }
+      this.number = 0
+      /*-------------*/
+      this.searchList = result
+    }
+  },
   methods: {
     focus () {
       this.isFocus = true
@@ -120,11 +151,57 @@ export default {
       setTimeout(() => {
         this.isFocus = false
       },200)
+    },
+    numberSerace () {
+      // 点击键盘down执行事件，写的很乱，不过功能还可以
+      if (!this.search) return
+      this.what = true
+      this.hidone = true
+      if (this.number >= this.searchList.length) {
+        this.number = 0
+      }
+      for (let i = 0; i < this.searchList.length; i++) {
+        this.$refs[i][0].className = ''
+      }
+      this.$refs[this.number][0].className = "msg"
+      this.search = this.searchList[this.number]
+      setTimeout(() => {
+        this.what = false
+      }, 200)
+
+      this.number++
+    },
+    upSerace () {
+      //点击键盘up执行事件
+      if (!this.search) return
+
+      this.what = true
+      if (this.hidone) {
+        this.number--
+      }
+      this.hidone = false
+      this.number--
+      if (this.number < 0) {
+        this.number = this.searchList.length-1
+      }
+      for (let i = 0; i < this.searchList.length; i++) {
+        this.$refs[i][0].className = ''
+      }
+      this.$refs[this.number][0].className = "msg"
+      this.search = this.searchList[this.number]
+      setTimeout(() => {
+        this.what = false
+      }, 200)
+
     }
   }
+
 }
 </script>
 
-<style>
-
+<style scoped>
+  .msg {
+    background: #F8F8F8;
+    color: #31BBAC;
+  }
 </style>
