@@ -1,10 +1,10 @@
 <template>
   <el-container class="layout-default">
-    <el-header>
+    <el-header height="auto">
       <my-header/>
     </el-header>
     <el-main>
-      1
+      <nuxt/>
     </el-main>
     <el-footer>Footer</el-footer>
   </el-container>
