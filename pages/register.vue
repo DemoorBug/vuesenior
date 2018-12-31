@@ -182,7 +182,8 @@ export default {
             if (status ===200) {
               if (data && data.code ===0) {
                 // this.error = data.msg
-                location.href = '/login'
+                // location.href = '/login'
+                this.$router.push('login')
               } else {
               this.error = data.msg
               }

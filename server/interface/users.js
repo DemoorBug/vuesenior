@@ -157,9 +157,13 @@ router.post('/verify', async (ctx, next) => {
 router.get('/exit', async (ctx, next) => {
   await ctx.logout()
   if (!ctx.isAuthenticated()) {
-    code: 0
+    ctx.body = {
+      code: 0
+    }
   } else {
-    ctx: -1
+    ctx.body = {
+      code: -1
+    }
   }
 })
 

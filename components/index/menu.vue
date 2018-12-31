@@ -5,7 +5,7 @@
       @mouseleave="mouseleave">
       <dt>全部分类</dt>
       <dd
-        v-for="(item, index) of menu"
+        v-for="(item, index) of home.menu"
         :key="index"
         @mouseenter="enter">
         <i :class="item.type"/>{{ item.name }}<span class="arrow"/>
@@ -27,11 +27,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
       kind: '',
-      menu: [{
+      /*menu: [{
         type: 'food',
         name: '美食',
         child: [{
@@ -45,12 +47,13 @@ export default {
           title: '外卖',
           child: ['美团','饿了么','百度外卖','自助餐']
         }]
-      }]
+      }]*/
     }
   },
   computed: {
+    ...mapState(['home']),
     curdetail () {
-      return this.menu.filter((item) => item.type==this.kind)[0].child
+      return this.home.menu.filter((item) => item.type==this.kind)[0].child
     }
   },
   methods: {
@@ -60,7 +63,6 @@ export default {
       }, 150)
     },
     enter (e) {
-      console.log(e.target)
       this.kind = e.target.querySelector('i').className
     },
     Emousele () {
