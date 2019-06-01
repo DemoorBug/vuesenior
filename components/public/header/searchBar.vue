@@ -17,8 +17,7 @@
             placeholder="搜索商家或地点"
             @focus="focus"
             @blur="blur"
-            @keyup.down.native="numberSerace"
-            @keyup.up.native="upSerace"/>
+            @input="input"/>
           <button class="el-button el-button--primary"><i class="el-icon-search"/></button>
           <dl
             v-if="isHotPlace"
@@ -35,7 +34,7 @@
             <dd
               v-for="(item, index) of searchList"
               :ref= "index"
-              :key="index">{{ item }}</dd>
+              :key="index">{{ item.name }}</dd>
           </dl>
         </div>
         <p class="suggset">
@@ -97,6 +96,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   data () {
     return {
@@ -119,30 +119,6 @@ export default {
       return this.isFocus && this.search
     }
   },
-  watch: {
-    search () {
-      if (!this.search) {
-        this.searchList = []
-        return
-      }
-      if (this.what) {
-        return
-      }
-      const result = []
-      this.searchDate.forEach((value, index) => {
-        if (value.indexOf(this.search) > -1) {
-          result.push(value)
-        }
-      })
-      /*和这层代码没关系*/
-      for (let i = 0; i < this.searchList.length; i++) {
-        this.$refs[i][0].className = ''
-      }
-      this.number = 0
-      /*-------------*/
-      this.searchList = result
-    }
-  },
   methods: {
     focus () {
       this.isFocus = true
@@ -152,48 +128,17 @@ export default {
         this.isFocus = false
       },200)
     },
-    numberSerace () {
-      // 点击键盘down执行事件，写的很乱，不过功能还可以
-      if (!this.search) return
-      this.what = true
-      this.hidone = true
-      if (this.number >= this.searchList.length) {
-        this.number = 0
-      }
-      for (let i = 0; i < this.searchList.length; i++) {
-        this.$refs[i][0].className = ''
-      }
-      this.$refs[this.number][0].className = "msg"
-      this.search = this.searchList[this.number]
-      setTimeout(() => {
-        this.what = false
-      }, 200)
-
-      this.number++
-    },
-    upSerace () {
-      //点击键盘up执行事件
-      if (!this.search) return
-
-      this.what = true
-      if (this.hidone) {
-        this.number--
-      }
-      this.hidone = false
-      this.number--
-      if (this.number < 0) {
-        this.number = this.searchList.length-1
-      }
-      for (let i = 0; i < this.searchList.length; i++) {
-        this.$refs[i][0].className = ''
-      }
-      this.$refs[this.number][0].className = "msg"
-      this.search = this.searchList[this.number]
-      setTimeout(() => {
-        this.what = false
-      }, 200)
-
-    }
+    input: _.debounce(async function() {
+      let _this = this
+      let city = this.$store.state.geo.position.city.replace('市','')
+      let {status, data: {top}} = await _this.$axios.get('/search/top', {
+        params: {
+          input: _this.search,
+          city
+        }
+      })
+      _this.searchList = top.slice(0, 10)
+    }, 300)
   }
 
 }
