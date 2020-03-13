@@ -34,7 +34,7 @@
     "postcss-loader": "^3.0.0"
   },
   "devDependencies": {
-    "acorn": "^6.0.0",
+    "acorn": "^6.4.1",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "eslint": "^3.18.0",
